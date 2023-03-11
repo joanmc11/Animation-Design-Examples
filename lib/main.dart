@@ -1,5 +1,6 @@
 import 'package:animation_painter/retos/cuadrado_animado_page.dart';
 import 'package:animation_painter/src/pages/animaciones_page.dart';
+import 'package:animation_painter/src/pages/emergency_page.dart';
 import 'package:animation_painter/src/pages/graficas_circulares_page.dart';
 import 'package:animation_painter/src/pages/headers_page.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,9 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diseños App',
-      home: SlideshowPage()
+      home: EmergencyPage()
+      
+      //SlideshowPage()
       
       //GraficaCircularPage(),
       

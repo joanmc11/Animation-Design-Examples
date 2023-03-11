@@ -102,16 +102,24 @@ class _Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ssModel = Provider.of<_SlideShowModel>(context);
-    final bool selected = (ssModel.currentPage >= index - 0.5 &&
-        ssModel.currentPage < index + 0.5);
-    final size = selected ? ssModel.bulletPrimario : ssModel.bulletSecundario;
+    double size = 0;
+    Color color = ssModel.colorSecundario;
+    if (ssModel.currentPage >= index - 0.5 &&
+        ssModel.currentPage < index + 0.5) {
+      size = ssModel.bulletPrimario;
+      color = ssModel.colorPrimario;
+    } else {
+      size = ssModel.bulletSecundario;
+      color = ssModel.colorSecundario;
+    }
+
     return AnimatedContainer(
-      duration: const Duration(microseconds: 200),
+      duration: const Duration(microseconds: 400),
       margin: const EdgeInsets.symmetric(horizontal: 5),
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: selected ? ssModel.colorPrimario : ssModel.colorSecundario,
+        color: color,
         shape: BoxShape.circle,
       ),
     );
