@@ -3,6 +3,7 @@ import 'package:animation_painter/src/pages/animaciones_page.dart';
 import 'package:animation_painter/src/pages/emergency_page.dart';
 import 'package:animation_painter/src/pages/graficas_circulares_page.dart';
 import 'package:animation_painter/src/pages/headers_page.dart';
+import 'package:animation_painter/src/pages/sliver_list_page.dart';
 import 'package:flutter/material.dart';
 
 import 'src/labs/circular_progress_page.dart';
@@ -21,7 +22,9 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diseños App',
-      home: EmergencyPage()
+      home: SliverPage(),
+      
+      //EmergencyPage()
       
       //SlideshowPage()
       
