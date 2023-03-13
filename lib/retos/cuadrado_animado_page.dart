@@ -1,4 +1,6 @@
+import 'package:animation_painter/src/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CuadradoAnimadoPage extends StatelessWidget {
   const CuadradoAnimadoPage({super.key});
@@ -73,6 +75,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
   @override
   Widget build(BuildContext context) {
     //controller.forward();
+    final appTheme = Provider.of<ThemeChanger>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -81,21 +84,42 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
             child: _Rectangulo(),
             builder: (context, child) {
               return Transform.translate(
-                  offset: Offset(moveRight.value - moveLeft.value, moveUp.value - moveDown.value), child: child);
+                  offset: Offset(moveRight.value - moveLeft.value,
+                      moveUp.value - moveDown.value),
+                  child: child);
             }),
-        ElevatedButton(onPressed: (){
-          controller.forward();
-        }, child: const Text('Animate')),
-        ElevatedButton(onPressed: (){
-          controller.stop();
-        }, child: const Text('Stop')),
-        ElevatedButton(onPressed: (){
-          controller.reset();
-        }, child: const Text('Reset')),
-        ElevatedButton(onPressed: (){
-          controller.reverse();
-        }, child: const Text('Reverse')),
-
+        ElevatedButton(
+            onPressed: () {
+              controller.forward();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: appTheme.currentTheme.colorScheme.secondary
+            ),
+            child: Text('Animate', style: TextStyle(color: appTheme.currentTheme.scaffoldBackgroundColor),)),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: appTheme.currentTheme.colorScheme.secondary
+            ),
+            onPressed: () {
+              controller.stop();
+            },
+            child: Text('Stop', style: TextStyle(color: appTheme.currentTheme.scaffoldBackgroundColor),)),
+        ElevatedButton(
+            onPressed: () {
+              controller.reset();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: appTheme.currentTheme.colorScheme.secondary
+            ),
+            child:  Text('Reset', style: TextStyle(color: appTheme.currentTheme.scaffoldBackgroundColor),)),
+        ElevatedButton(
+            onPressed: () {
+              controller.reverse();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: appTheme.currentTheme.colorScheme.secondary
+            ),
+            child: Text('Reverse', style: TextStyle(color: appTheme.currentTheme.scaffoldBackgroundColor),)),
       ],
     );
   }
@@ -104,10 +128,11 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
 class _Rectangulo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
     return Container(
       width: 50,
       height: 50,
-      decoration: const BoxDecoration(color: Colors.blue),
+      decoration: BoxDecoration(color: appTheme.currentTheme.colorScheme.secondary),
     );
   }
 }
