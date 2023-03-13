@@ -14,9 +14,7 @@ class PinterestPage extends StatelessWidget {
       create: (_) => _MenuModel(),
       child: Scaffold(
           body: Stack(
-        children: const [
-           PinterestGrid(), 
-          _PinterestdMenuLocation()],
+        children: const [PinterestGrid(), _PinterestdMenuLocation()],
       )),
     );
   }
@@ -29,32 +27,39 @@ class _PinterestdMenuLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widthPantalla = MediaQuery.of(context).size.width;
+    double widthPantalla = MediaQuery.of(context).size.width;
     final mostrar = Provider.of<_MenuModel>(
       context,
     ).mostrar;
-     final appTheme = Provider.of<ThemeChanger>(context);
+    final appTheme = Provider.of<ThemeChanger>(context);
+
+    if (widthPantalla > 500) {
+      widthPantalla = widthPantalla - 300;
+    }
     return Positioned(
-        bottom: 30,
-        child: SizedBox(
-            width: widthPantalla,
-            height: 100,
-            child: Align(
-                alignment: Alignment.center,
-                child: PinterestMenu(
-                  mostrar: mostrar,
-                  backgroundColor: appTheme.currentTheme.scaffoldBackgroundColor,
-                  activeColor: appTheme.currentTheme.colorScheme.secondary,
-                  inactiveColor: Colors.blueGrey,
-                  items: [
-                    PinterestButton(onPressed: () {}, icon: Icons.pie_chart),
-                    PinterestButton(onPressed: () {}, icon: Icons.search),
-                    PinterestButton(
-                        onPressed: () {}, icon: Icons.notifications),
-                    PinterestButton(
-                        onPressed: () {}, icon: Icons.supervised_user_circle),
-                  ],
-                ))));
+      bottom: 30,
+      child: SizedBox(
+          width: widthPantalla,
+          height: 100,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              PinterestMenu(
+                mostrar: mostrar,
+                backgroundColor: appTheme.currentTheme.scaffoldBackgroundColor,
+                activeColor: appTheme.currentTheme.colorScheme.secondary,
+                inactiveColor: Colors.blueGrey,
+                items: [
+                  PinterestButton(onPressed: () {}, icon: Icons.pie_chart),
+                  PinterestButton(onPressed: () {}, icon: Icons.search),
+                  PinterestButton(onPressed: () {}, icon: Icons.notifications),
+                  PinterestButton(
+                      onPressed: () {}, icon: Icons.supervised_user_circle),
+                ],
+              ),
+            ],
+          )),
+    );
   }
 }
 
@@ -93,6 +98,26 @@ class _PinterestGridState extends State<PinterestGrid> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLarge;
+    List<QuiltedGridTile> quiltedlist;
+
+    if (MediaQuery.of(context).size.height > 500) {
+      isLarge = true;
+      quiltedlist = [
+        const QuiltedGridTile(3, 1),
+        const QuiltedGridTile(2, 1),
+        const QuiltedGridTile(2, 1),
+        const QuiltedGridTile(1, 1),
+        const QuiltedGridTile(1, 1),
+        const QuiltedGridTile(1, 1),
+      ];
+    } else {
+      quiltedlist = [
+        const QuiltedGridTile(3, 2),
+        const QuiltedGridTile(2, 2),
+      ];
+      isLarge = false;
+    }
     return GridView.custom(
       controller: controller,
       physics: const BouncingScrollPhysics(),
@@ -101,12 +126,7 @@ class _PinterestGridState extends State<PinterestGrid> {
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
         repeatPattern: QuiltedGridRepeatPattern.inverted,
-        pattern: [
-          const QuiltedGridTile(3, 2),
-          const QuiltedGridTile(2, 2),
-          //const QuiltedGridTile(1, 1),
-          //const QuiltedGridTile(1, 2),
-        ],
+        pattern: quiltedlist,
       ),
       childrenDelegate: SliverChildBuilderDelegate(
           (context, index) => _PinterestItem(index: index),
@@ -124,7 +144,7 @@ class _PinterestItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final appTheme = Provider.of<ThemeChanger>(context);
+    final appTheme = Provider.of<ThemeChanger>(context);
     return Container(
       margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(

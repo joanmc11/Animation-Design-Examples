@@ -11,15 +11,27 @@ class SlideshowPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: const [
-          Expanded(
-            child: MiSlideShow(),
-          ),
-          Expanded(child: MiSlideShow()),
-        ],
+    bool isLarge;
+    if (MediaQuery.of(context).size.height > 500) {
+      isLarge = true;
+    } else {
+      isLarge = false;
+    }
+
+    const children = [
+      Expanded(
+        child: MiSlideShow(),
       ),
+      Expanded(child: MiSlideShow()),
+    ];
+    return Scaffold(
+      body: isLarge
+          ? Column(
+              children: children,
+            )
+          : Row(
+              children: children,
+            ),
     );
   }
 }
@@ -39,7 +51,9 @@ class MiSlideShow extends StatelessWidget {
           ? appTheme.currentTheme.colorScheme.secondary
           : Colors.redAccent,
       slides: [
-        SvgPicture.asset('assets/svgs/slide-1.svg',),
+        SvgPicture.asset(
+          'assets/svgs/slide-1.svg',
+        ),
         SvgPicture.asset('assets/svgs/slide-2.svg'),
         SvgPicture.asset('assets/svgs/slide-3.svg'),
         SvgPicture.asset('assets/svgs/slide-4.svg'),

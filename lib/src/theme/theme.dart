@@ -50,16 +50,14 @@ class ThemeChanger with ChangeNotifier {
     _darkTheme = false;
     _customTheme = value;
     if (value) {
-      
-    _currentTheme = ThemeData.dark().copyWith(
-      colorScheme: const ColorScheme.dark(secondary: Colors.pink),
-      primaryColorLight: Colors.white,
-      scaffoldBackgroundColor: Color(0xff16202B),
-    );
+      _currentTheme = ThemeData.dark().copyWith(
+          colorScheme: const ColorScheme.dark(secondary: Colors.pink),
+          primaryColorLight: Colors.white,
+          scaffoldBackgroundColor: Color(0xff16202B),
+          appBarTheme: AppBarTheme(backgroundColor: Colors.pink));
     } else {
       _currentTheme = ThemeData.light();
     }
     notifyListeners();
-  
   }
 }
